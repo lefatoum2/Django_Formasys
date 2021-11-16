@@ -52,7 +52,7 @@ urlpatterns = [
 ]
 
 ```
-commande/urls.py :
+Création de commande/urls.py :
 ```python
 from django.contrib import admin
 from django.urls import path, include
@@ -82,7 +82,7 @@ urlpatterns = [
     path('', views.list_client),
 ]
 ```
-client/urls.py :
+Création de client/urls.py :
 ```python
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -103,7 +103,7 @@ def home(request):
     return HttpResponse('Bienvenue')
 
 ```
-produit/urls.py :
+Création de produit/urls.py :
 ```python
 from django.contrib import admin
 from django.urls import path, include
@@ -113,8 +113,51 @@ urlpatterns = [
     path('', views.home),
 ]
 ```
+## Les templates
+
+Créez le dossier templates/produit et ensuite  templates/produit/acceuil.html:
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Amazon</title>
+</head>
+<body>
+    <h1> Accueil </h1>
+</body>
+</html>
+```
+
+Puis modifiez projet/settings.py :
 
 ```python
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+
+Puis modifiez produit/views.py : 
+
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+
+# Create your views here.
+def home(request):
+    return render(request,'produit/acceuil.html')
 
 ```
 
