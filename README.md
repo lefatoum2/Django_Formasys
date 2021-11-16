@@ -35,8 +35,8 @@ INSTALLED_APPS = [
     'commande',
     'client',
 ]
-
 ```
+## Les routes
 projet/urls.py :
 
 ```python
