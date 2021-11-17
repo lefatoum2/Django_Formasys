@@ -56,10 +56,10 @@ Création de commande/urls.py :
 ```python
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views # ajout
 
 urlpatterns = [
-    path('', views.list_commande),
+    path('', views.list_commande), # ajout
 ]
 ```
 commande/views.py :
@@ -69,7 +69,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_commande(request):
-    return HttpResponse('La liste des commandes:')
+    return HttpResponse('La liste des commandes:') # ajout
 
 ```
 client/views.py : 
@@ -79,7 +79,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.list_client),
+    path('', views.list_client), # ajout
 ]
 ```
 Création de client/urls.py :
@@ -89,7 +89,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_client(request):
-    return HttpResponse('La liste des clients:')
+    return HttpResponse('La liste des clients:') # ajout
 
 ```
 produit/views.py :
@@ -135,7 +135,7 @@ Puis modifiez projet/settings.py :
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Ajout
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # ajout
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -247,11 +247,11 @@ puis acceuil.html:
 {% extends 'main.html' %}
 
 
-    {% block content%}
+    {% block contenu%}
 
     <h1>Acceuil</h1>
 
-    {% endblock content%}
+    {% endblock %}
 ```
 
 commande/list_commande.html
@@ -259,11 +259,11 @@ commande/list_commande.html
 {% extends 'main.html' %}
 
 
-    {% block content%}
+    {% block contenu%}
 
     <h1>La liste des commandes</h1>
 
-    {% endblock content%}
+    {% endblock %}
 ```
 
 client/list_client.html
@@ -271,11 +271,11 @@ client/list_client.html
 {% extends 'main.html' %}
 
 
-    {% block content%}
+    {% block contenu%}
 
     <h1>La liste des clients</h1>
 
-    {% endblock content%}
+    {% endblock %}
 ```
 
 produit/views.py :
@@ -285,7 +285,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request,'produit/acceuil.html') # ajout
+    return render(request,'produit/acceuil.html')
 
 ```
 
@@ -297,7 +297,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_client(request):
-    return render(request, 'client/list_client.html') # ajout
+    return render(request, 'client/list_client.html')
 
 ```
 
@@ -309,53 +309,6 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_commande(request):
-    return render(request,'commande/list_commande.html') # ajout
+    return render(request,'commande/list_commande.html')
 
 ```
-
-produit/acceuil.html :
-```html
-{% extends 'main.html' %}
-
-    {% block content%}
-<br>
-<div class="row">
-    <div class="col-md-5">
-        <h5>Clients:</h5>
-        <hr>
-        <div class="card card-body">
-            <a class="btn btn-primary btn-sm btn-block" href="">Créer Un Client</a>
-            <table class="table table-sm">
-                <tr>
-                    <th></th>
-                    <th>Clients</th>
-                    <th>Commandes</th>
-                </tr>
-
-            </table>
-        </div>
-    </div>
-
-    <div class="col-md-7">
-        <h5>Les 5 Dernières Commandes</h5>
-        <hr>
-        <div class="card card-body">
-            <a class="btn btn-primary btn-sm btn-block" href="">Ajouter une Commande</a>
-            <table class="table table-sm">
-                <tr>
-                    <th>Produit</th>
-                    <th>Date de la commande</th>
-                    <th>Status</th>
-                    <th>Mise à jour</th>
-                    <th>Supprimer</th>
-                </tr>
-            </table>
-        </div>
-
-    </div>
-
-
-</div>
-    {% endblock content%}
-```
-
