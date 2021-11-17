@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'produit',
-    'commande',
-    'client',
+    'produit', # ajout
+    'commande', # ajout
+    'client', # ajout
 ]
 ```
 ## Les routes
@@ -46,9 +46,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('produit.urls')),
-    path('commande', include('commande.urls')),
-    path('client', include('client.urls')),
+    path('', include('produit.urls')), # ajout
+    path('commande', include('commande.urls')), # ajout
+    path('client', include('client.urls')), # ajout
 ]
 
 ```
@@ -135,7 +135,7 @@ Puis modifiez projet/settings.py :
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # Ajout
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,7 +157,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request,'produit/acceuil.html')
+    return render(request,'produit/acceuil.html') # ajout
 
 ```
 
@@ -247,11 +247,11 @@ puis acceuil.html:
 {% extends 'main.html' %}
 
 
-    {% block contenu%}
+    {% block content%}
 
     <h1>Acceuil</h1>
 
-    {% endblock %}
+    {% endblock content%}
 ```
 
 commande/list_commande.html
@@ -259,11 +259,11 @@ commande/list_commande.html
 {% extends 'main.html' %}
 
 
-    {% block contenu%}
+    {% block content%}
 
     <h1>La liste des commandes</h1>
 
-    {% endblock %}
+    {% endblock content%}
 ```
 
 client/list_client.html
@@ -271,11 +271,11 @@ client/list_client.html
 {% extends 'main.html' %}
 
 
-    {% block contenu%}
+    {% block content%}
 
     <h1>La liste des clients</h1>
 
-    {% endblock %}
+    {% endblock content%}
 ```
 
 produit/views.py :
@@ -285,7 +285,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request,'produit/acceuil.html')
+    return render(request,'produit/acceuil.html') # ajout
 
 ```
 
@@ -297,7 +297,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_client(request):
-    return render(request, 'client/list_client.html')
+    return render(request, 'client/list_client.html') # ajout
 
 ```
 
@@ -309,6 +309,53 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_commande(request):
-    return render(request,'commande/list_commande.html')
+    return render(request,'commande/list_commande.html') # ajout
 
 ```
+
+produit/acceuil.html :
+```html
+{% extends 'main.html' %}
+
+    {% block content%}
+<br>
+<div class="row">
+    <div class="col-md-5">
+        <h5>Clients:</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Créer Un Client</a>
+            <table class="table table-sm">
+                <tr>
+                    <th></th>
+                    <th>Clients</th>
+                    <th>Commandes</th>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h5>Les 5 Dernières Commandes</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Ajouter une Commande</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>Produit</th>
+                    <th>Date de la commande</th>
+                    <th>Status</th>
+                    <th>Mise à jour</th>
+                    <th>Supprimer</th>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+    {% endblock content%}
+```
+
