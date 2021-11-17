@@ -31,9 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'produit',
-    'commande',
-    'client',
+    'produit', # ajout
+    'commande', # ajout
+    'client', # ajout
 ]
 ```
 ## Les routes
@@ -46,9 +46,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('produit.urls')),
-    path('commande', include('commande.urls')),
-    path('client', include('client.urls')),
+    path('', include('produit.urls')), # ajout
+    path('commande', include('commande.urls')), # ajout
+    path('client', include('client.urls')), # ajout
 ]
 
 ```
@@ -56,10 +56,10 @@ Création de commande/urls.py :
 ```python
 from django.contrib import admin
 from django.urls import path, include
-from . import views
+from . import views # ajout
 
 urlpatterns = [
-    path('', views.list_commande),
+    path('', views.list_commande), # ajout
 ]
 ```
 commande/views.py :
@@ -69,7 +69,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_commande(request):
-    return HttpResponse('La liste des commandes:')
+    return HttpResponse('La liste des commandes:') # ajout
 
 ```
 client/views.py : 
@@ -79,7 +79,7 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.list_client),
+    path('', views.list_client), # ajout
 ]
 ```
 Création de client/urls.py :
@@ -89,7 +89,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def list_client(request):
-    return HttpResponse('La liste des clients:')
+    return HttpResponse('La liste des clients:') # ajout
 
 ```
 produit/views.py :
@@ -135,7 +135,7 @@ Puis modifiez projet/settings.py :
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')], # ajout
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -157,7 +157,7 @@ from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
-    return render(request,'produit/acceuil.html')
+    return render(request,'produit/acceuil.html') # ajout
 
 ```
 
