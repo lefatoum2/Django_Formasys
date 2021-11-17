@@ -311,4 +311,51 @@ from django.http import HttpResponse
 def list_commande(request):
     return render(request,'commande/list_commande.html')
 
+
+```
+produit/acceuil.html :
+
+```html
+{% extends 'main.html' %}
+
+    {% block content%}
+<br>
+<div class="row">
+    <div class="col-md-5">
+        <h5>Clients:</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Créer Un Client</a>
+            <table class="table table-sm">
+                <tr>
+                    <th></th>
+                    <th>Clients</th>
+                    <th>Commandes</th>
+                </tr>
+
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h5>Les 5 Dernières Commandes</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Ajouter une Commande</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>Produit</th>
+                    <th>Date de la commande</th>
+                    <th>Status</th>
+                    <th>Mise à jour</th>
+                    <th>Supprimer</th>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+    {% endblock content%}
 ```
