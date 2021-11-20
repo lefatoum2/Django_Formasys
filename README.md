@@ -359,3 +359,92 @@ produit/acceuil.html :
 </div>
     {% endblock content%}
 ```
+
+## Création des modèles
+
+commande/models.py
+```python
+from django.db import models
+
+# Create your models here.
+class Commande(models.Model):
+    STATUS = (('en instance', 'en instance'), ('non livré', 'non livré'), ('livré', 'livré"'))
+    # client =
+    # produit =
+    status = models.CharField(max_length=200, null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.nom
+
+```
+client/models.py
+```python
+from django.db import models
+
+# Create your models here.
+class Client(models.Model):
+    nom = models.CharField(max_length=200, null=True)
+    telephone = models.CharField(max_length=200, null=True)
+    date_creation = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+            return self.nom
+```
+produit/models.py
+```python
+from django.db import models
+
+
+# Create your models here.
+class Produit(models.Model):
+    nom = models.CharField(max_length=200, null=True)
+    prix = models.FloatField(null=True)
+
+    def __str__(self):
+        return self.nom
+```
+
+```python 
+python manage.py makemigrations
+```
+
+```python 
+python manage.py migrate
+```
+### Création du superadministrateur
+
+```python
+python manage.py createsuperuser
+```
+
+#### Ajouter une table dans admin (partie administrateur)
+
+client/admin.py
+```python
+from django.contrib import admin
+from .models import Client
+
+# Register your models here.
+admin.site.register(Client)
+```
+
+commande/admin.py
+```python
+from django.contrib import admin
+from .models import Commande
+# Register your models here.
+
+admin.site.register(Commande)
+
+```
+produit/admin.py
+```python
+from django.contrib import admin
+from .models import Produit
+# Register your models here.
+
+admin.site.register(Produit)
+```
+
+
