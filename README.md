@@ -528,3 +528,96 @@ templates/produit/acceuil.html :
     {% endblock content%}
 ```
 
+## URLs dynamiques
+
+client/views.py :
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Client
+
+
+# Create your views here.
+def list_client(request, pk):
+    client = Client.objects.get(id=pk) #  Ajout
+    commande = client.commande_set.all() #  Ajout
+    commande_total = commande.count() #  Ajout
+    context = {'client': client, 'commande': commande, 'commande_total': commande_total} #  Ajout
+    return render(request, 'client/list_client.html', context) #  Ajout
+```
+client/urls.py :
+```python
+from django.contrib import admin
+from django.urls import path, include
+from . import views
+
+urlpatterns = [
+    path('/<str:pk>', views.list_client, name='client'), # Ajout
+]
+````
+
+client/list_client.html :
+
+```html
+{% extends 'main.html' %}
+
+    {% block content %}
+
+    <h1>La liste des clients</h1>
+    <div class="col-md">
+        <div class="row">
+            <div class="card card-body">
+
+                <form method="get">
+                    <button class="btn btn-primary" type="submit">Modifier le client</button>
+                    <button class="btn btn-primary" type="submit">Supprimer le client</button>
+                </form>
+            </div>
+        </div>
+
+
+        </div>
+        <div class="card card-body">
+            <h5>Informations</h5>
+            <hr>
+            <p>Nom : {{client.nom}}</p>
+            <p>Telephone: {{client.telephone}}</p>
+        </div>
+
+        <div>
+            <table class="table table-sm">
+            <tr>
+                <th>Produit</th>
+                <th>Categorie</th>
+                <th>Date de commande</th>
+                <th>Status</th>
+                <th>Mise à jour</th>
+                <th>Supprimer</th>
+
+            </tr>
+            {% for commande in commande %}
+            <tr>
+                <th>{{ commande.produit}}</th>
+                <th>{{ commande.produit}}</th>
+                <th>{{ commande.date_creation}}</th>
+                <th>{{ commande.status}}</th>
+                <th><a href=" ">Mise à jour</a></th>
+                <th><a href=" ">Supprimer</a></th>
+
+            </tr>
+            {% endfor %}
+            </table>
+        </div>
+
+        <div class="col-md">
+            <div class="card card-body">
+                <h5>Total des commandes</h5>
+                    <hr>
+                    <h1 style="text-align:center; padding: 10px">{{commande_total}}</h1>
+
+        </div>
+
+    </div>
+
+    {% endblock content %}
+```

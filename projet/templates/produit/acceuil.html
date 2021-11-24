@@ -17,7 +17,7 @@
 
             {% for client in clients %}
                 </tr>
-                <th>{{client.id}}</th>
+                <th><a href="{% url 'client' client.id %}">{{client.id}}</a></th>
                 <th>{{client.nom}}</th>
                 <th>{{client.telephone}}</th>
                 {% endfor %}
