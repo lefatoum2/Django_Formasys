@@ -484,12 +484,12 @@ templates/produit/acceuil.html :
                     <!--<th>Commandes</th>-->
                     <th>Telephone</th>
 
-            {% for client in clients %}
+            {% for client in clients %} # Ajout
                 </tr>
-                <th>{{client.id}}</th>
-                <th>{{client.nom}}</th>
-                <th>{{client.telephone}}</th>
-                {% endfor %}
+                <th>{{client.id}}</th> # Ajout
+                <th>{{client.nom}}</th> # Ajout
+                <th>{{client.telephone}}</th> # Ajout
+                {% endfor %} # Ajout
             </table>
         </div>
     </div>
@@ -507,14 +507,14 @@ templates/produit/acceuil.html :
                     <th>Mise à jour</th>
                     <th>Supprimer</th>
                 </tr>
-                {% for commande in commandes %}
+                {% for commande in commandes %} # Ajout
                 <tr>
-                    <th>{{commande.produit}}</th>
-                    <th>{{commande.client}}</th>
-                    <th>{{commande.date_creation}}</th>
-                    <th>{{commande.status}}</th>
-                    <th><a href = ''> Mettre à jour</a></th>
-                    <th><a href = ''>Supprimer</a></th>
+                    <th>{{commande.produit}}</th> # Ajout
+                    <th>{{commande.client}}</th> # Ajout
+                    <th>{{commande.date_creation}}</th> # Ajout
+                    <th>{{commande.status}}</th> # Ajout
+                    <th><a href = ''> Mettre à jour</a></th> # Ajout
+                    <th><a href = ''>Supprimer</a></th> # Ajout
 
                 </tr>
                 {% endfor %}
