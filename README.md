@@ -446,5 +446,85 @@ from .models import Produit
 
 admin.site.register(Produit)
 ```
+##  Afficher les données dans la partie frontend
 
+produit/views.py :
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+from commande.models import Commande
+from client.models import Client
+
+# Create your views here.
+def home(request):
+    commandes = Commande.objects.all()
+    clients = Client.objects.all()
+    context = {'commandes':commandes, 'clients': clients}
+    return render(request, 'produit/acceuil.html', context)
+
+```
+
+templates/produit/acceuil.html :
+
+```html
+{% extends 'main.html' %}
+
+    {% block content%}
+<br>
+<div class="row">
+    <div class="col-md-5">
+        <h5>Clients:</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Créer Un Client</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>ID</th>
+                    <th>Clients</th>
+                    <!--<th>Commandes</th>-->
+                    <th>Telephone</th>
+
+            {% for client in clients %}
+                </tr>
+                <th>{{client.id}}</th>
+                <th>{{client.nom}}</th>
+                <th>{{client.telephone}}</th>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h5>Toutes les  Commandes</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Ajouter une Commande</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>Produit</th>
+                    <th>Date de la commande</th>
+                    <th>Status</th>
+                    <th>Mise à jour</th>
+                    <th>Supprimer</th>
+                </tr>
+                {% for commande in commandes %}
+                <tr>
+                    <th>{{commande.produit}}</th>
+                    <th>{{commande.client}}</th>
+                    <th>{{commande.date_creation}}</th>
+                    <th>{{commande.status}}</th>
+                    <th><a href = ''> Mettre à jour</a></th>
+                    <th><a href = ''>Supprimer</a></th>
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+    {% endblock content%}
+```
 
