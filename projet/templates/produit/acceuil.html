@@ -14,12 +14,14 @@
                     <th>Clients</th>
                     <!--<th>Commandes</th>-->
                     <th>Telephone</th>
+                    <th>Details</th>
 
             {% for client in clients %}
                 </tr>
                 <th><a href="{% url 'client' client.id %}">{{client.id}}</a></th>
                 <th>{{client.nom}}</th>
                 <th>{{client.telephone}}</th>
+                <th><a class="btn btn-sm btn-info" href="{% url 'client' client.id %}">Details</a></th>
                 {% endfor %}
             </table>
         </div>
@@ -29,7 +31,7 @@
         <h5>Toutes les  Commandes</h5>
         <hr>
         <div class="card card-body">
-            <a class="btn btn-primary btn-sm btn-block" href="">Ajouter une Commande</a>
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'ajout_commande' %}">Ajouter une Commande</a>
             <table class="table table-sm">
                 <tr>
                     <th>Produit</th>
@@ -44,8 +46,9 @@
                     <th>{{commande.client}}</th>
                     <th>{{commande.date_creation}}</th>
                     <th>{{commande.status}}</th>
-                    <th><a href = ''> Mettre à jour</a></th>
-                    <th><a href = ''>Supprimer</a></th>
+                    <th><a class="btn btn-sm btn-info" href="{% url 'modifier_commande' commande.id %}">Modifier</a></th>
+                    <th><a class="btn btn-sm btn-danger" href="{% url 'supprimer_commande' commande.id %}">Supprimer</a></th>
+
 
                 </tr>
                 {% endfor %}

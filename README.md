@@ -364,18 +364,22 @@ produit/acceuil.html :
 
 commande/models.py
 ```python
+import sys
 from django.db import models
+from produit.models import Produit
+from client.models import Client
+
 
 # Create your models here.
 class Commande(models.Model):
     STATUS = (('en instance', 'en instance'), ('non livré', 'non livré'), ('livré', 'livré"'))
-    # client =
-    # produit =
-    status = models.CharField(max_length=200, null=True)
-    date_creation = models.DateTimeField(auto_now_add=True)
+    client = models.ForeignKey(Client, null=True, on_delete=models.SET_NULL)
+    produit = models.ForeignKey(Produit, null=True, on_delete=models.SET_NULL)
+    status = models.CharField(max_length=200, null=True,choices=STATUS)
+    date_creation = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
-        return self.nom
+        return self.produit.name
 
 ```
 client/models.py
@@ -621,3 +625,183 @@ client/list_client.html :
 
     {% endblock content %}
 ```
+## CRUD
+
+Créer le formulaire pour ajouter une commande (commande/forms.py):
+```python
+from django.forms import ModelForm
+from .models import Commande
+
+
+class CommandeForm(ModelForm):
+    class Meta:
+        model = Commande
+        fields = '__all__'
+```
+
+Puis commande/views.py :
+
+```python
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import CommandeForm
+from .models import Commande
+
+
+# Create your views here.
+def list_commande(request):
+    return render(request, 'commande/list_commande.html')
+
+
+def ajouter_commande(request):
+    form = CommandeForm()
+    if request.method == 'POST':
+        form = CommandeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'commande/ajouter_commande.html', context)
+
+
+def modifier_commande(request, pk):
+    commande = Commande.objects.get(id=pk)
+    form = CommandeForm(instance=commande)
+    if request.method == 'POST':
+        form = CommandeForm(request.POST, instance=commande)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'commande/ajouter_commande.html', context)
+
+
+def supprimer_commande(request, pk):
+    commande = Commande.objects.get(id=pk)
+    if request.method == 'POST':
+        commande.delete()
+        return redirect('/')
+    context = {'item': commande}
+    return render(request, 'commande/supprimer_commande.html', context)
+
+```
+
+commande/ajouter_commande.html :
+
+```html
+{% extends 'main.html' %}
+
+
+    {% block content %}
+
+    <h1>Ajouter une commande</h1>
+<div class="row">
+<div class="col-md-6">
+    <div class="card card-body">
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <input type="submit" name="Envoyer">
+    </form>
+    </div>
+    </div>
+</div>
+    {% endblock content %}
+```
+
+commande/supprimer_commande.html :
+
+```html
+{% extends 'main.html' %}
+
+
+    {% block content %}
+
+    <h1>Supprimer commande</h1>
+    <p>Voules-vous supprimer cette commande</p>
+<form action="{% url 'supprimer_commande' item.id%}" method="POST"></form>
+            {% csrf_token %}
+            <a class="btn btn-warning" href="{% url 'acceuil' %}">Annuler</a>
+            <input class="btn btn-danger" type="submit" name="Confirmer">
+    {% endblock content %}
+```
+produit/acceuil.html:
+
+```html
+{% extends 'main.html' %}
+
+    {% block content%}
+<br>
+<div class="row">
+    <div class="col-md-5">
+        <h5>Clients:</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="">Créer Un Client</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>ID</th>
+                    <th>Clients</th>
+                    <!--<th>Commandes</th>-->
+                    <th>Telephone</th>
+                    <th>Details</th>
+
+            {% for client in clients %}
+                </tr>
+                <th><a href="{% url 'client' client.id %}">{{client.id}}</a></th>
+                <th>{{client.nom}}</th>
+                <th>{{client.telephone}}</th>
+                <th><a class="btn btn-sm btn-info" href="{% url 'client' client.id %}">Details</a></th>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-7">
+        <h5>Toutes les  Commandes</h5>
+        <hr>
+        <div class="card card-body">
+            <a class="btn btn-primary btn-sm btn-block" href="{% url 'ajout_commande' %}">Ajouter une Commande</a>
+            <table class="table table-sm">
+                <tr>
+                    <th>Produit</th>
+                    <th>Date de la commande</th>
+                    <th>Status</th>
+                    <th>Mise à jour</th>
+                    <th>Supprimer</th>
+                </tr>
+                {% for commande in commandes %}
+                <tr>
+                    <th>{{commande.produit}}</th>
+                    <th>{{commande.client}}</th>
+                    <th>{{commande.date_creation}}</th>
+                    <th>{{commande.status}}</th>
+                    <th><a class="btn btn-sm btn-info" href="{% url 'modifier_commande' commande.id %}">Modifier</a></th>
+                    <th><a class="btn btn-sm btn-danger" href="{% url 'supprimer_commande' commande.id %}">Supprimer</a></th>
+
+
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+
+    </div>
+
+
+</div>
+    {% endblock content%}
+```
+produit/urls.py:
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+from . import views
+
+urlpatterns = [
+    path('', views.home, name = 'acceuil'),
+]
+
+```
+
+
