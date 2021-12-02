@@ -804,4 +804,65 @@ urlpatterns = [
 
 ```
 
+## Implementation du filtre
 
+```python
+pip install django_filters
+```
+
+settings.py :
+
+```python
+...
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'produit',
+    'commande',
+    'client',
+    'django_filters',
+]
+...
+```
+client/views.py :
+
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+from .models import Client
+from commande.filters import CommandeFiltre
+
+# Create your views here.
+def list_client(request, pk):
+    client = Client.objects.get(id=pk)
+    commande = client.commande_set.all()
+    commande_total = commande.count()
+    myFilter = CommandeFiltre(request.GET,queryset=commande)
+    commande=myFilter.qs
+    context = {'client': client, 'commande': commande, 'commande_total': commande_total, 'myFilter':myFilter}
+    return render(request, 'client/list_client.html', context)
+
+
+```
+
+client/list_client.html:
+
+```html
+...
+<div class="row">
+            <div class="col">
+                <div class="card card-body">
+                    <form method="get">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                        {{myFilter.form}}
+                    </form>
+                </div>
+            </div>
+        </div>
+
+...
+```
