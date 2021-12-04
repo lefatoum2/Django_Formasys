@@ -866,3 +866,123 @@ client/list_client.html:
 
 ...
 ```
+## Inscription
+
+```python
+py manage.py startapp compte
+```
+
+settings.py:
+```python
+...
+INSTALLED_APPS = [
+    'django.contrib.admin',
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'produit',
+    'commande',
+    'client',
+    'django_filters',
+    'compte',
+]
+```
+projets/urls.py  :
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('produit.urls')),
+    path('commande', include('commande.urls')),
+    path('client', include('client.urls')),
+    path('compte', include('compte.urls')),
+]
+```
+
+compte/urls.py : 
+```python
+from django.urls import path, include
+from . import views
+
+urlpatterns = [
+    path('inscription', views.inscriptionPage, name='inscription'),
+    path('acces', views.accesPage, name='acces'),
+]
+
+```
+
+compte/views.py :
+```python
+from django.shortcuts import render
+from django.contrib.auth.forms import UserCreationForm
+from .forms import CreerUtilisateur
+
+# Create your views here.
+
+def inscriptionPage(request):
+    form = CreerUtilisateur(request.POST)
+    context = {'form':form}
+    return render(request, 'compte/inscription.html', context)
+
+
+def accesPage(request):
+    context = {}
+    return render(request, 'compte/access.html')
+
+
+```
+
+Création de compte/forms.py :
+```python
+from django.forms import ModelForm
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django import forms
+
+class CreerUtilisateur(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ['username','email', 'password1', 'password2']
+
+```
+
+templates/compte/inscription.html :
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Inscription</h1>
+<form method="POST" action="">
+    {% for champ in form %}
+    {{champ.label}}
+    {{champ}}
+    {% endfor %}
+    <input type="submit" name="Inscription">
+</form>
+</body>
+</html>
+```
+
+templates/compte/access.html :
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Accès</h1>
+</body>
+</html>
+```
