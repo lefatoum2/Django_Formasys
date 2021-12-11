@@ -1242,7 +1242,121 @@ templates/compte/access.html :
 
 ## Logout 
 
+compte/views.py :
 
+```python
+...
+def logoutUser(request):
+    logout(request)
+    return redirect('acces')
+```
 
+compte/urls.py:
+```python
+from django.urls import path, include
+from . import views
 
+urlpatterns = [
+    path('inscription', views.inscriptionPage, name='inscription'),
+    path('acces', views.accesPage, name='acces'),
+    path('quitter', views.logoutUser, name='quitter')
+]
+
+```
+
+Bouton quitter dans templates/base/navbar.html :
+```html
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <img src="{% static 'images/logo.png' %}">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Acceuil</a>
+      </li>
+        <li class="nav-item">
+        <a class="nav-link" href="#">Produits</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Clients</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Commandes</a>
+      </li>
+    </ul>
+  </div>
+  <span>Salut, {{request.user}} </span>
+  <span><a href="{% url 'quitter' %}"> Quitter</a></span>
+</nav>
+```
+
+#### Autorisation d'accès
+
+produit/views.py:
+```python
+from django.shortcuts import render
+from django.http import HttpResponse
+from commande.models import Commande
+from client.models import Client
+from django.contrib.auth.decorators import login_required
+
+# Create your views here.
+@login_required(login_url='acces')
+def home(request):
+    commandes = Commande.objects.all()
+    clients = Client.objects.all()
+    context = {'commandes':commandes, 'clients': clients}
+    return render(request, 'produit/acceuil.html', context)
+
+```
+
+commande/views.py:
+```python
+from django.shortcuts import render, redirect
+from django.http import HttpResponse
+from .forms import CommandeForm
+from .models import Commande
+from django.contrib.auth.decorators import login_required
+
+# Create your views here.
+@login_required(login_url='acces')
+def list_commande(request):
+    return render(request, 'commande/list_commande.html')
+
+@login_required(login_url='acces')
+def ajouter_commande(request):
+    form = CommandeForm()
+    if request.method == 'POST':
+        form = CommandeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'commande/ajouter_commande.html', context)
+
+@login_required(login_url='acces')
+def modifier_commande(request, pk):
+    commande = Commande.objects.get(id=pk)
+    form = CommandeForm(instance=commande)
+    if request.method == 'POST':
+        form = CommandeForm(request.POST, instance=commande)
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+    context = {'form': form}
+    return render(request, 'commande/ajouter_commande.html', context)
+
+@login_required(login_url='acces')
+def supprimer_commande(request, pk):
+    commande = Commande.objects.get(id=pk)
+    if request.method == 'POST':
+        commande.delete()
+        return redirect('/')
+    context = {'item': commande}
+    return render(request, 'commande/supprimer_commande.html', context)
+
+```
 

@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CreerUtilisateur
@@ -31,3 +31,7 @@ def accesPage(request):
         else:
             messages.info(request, 'Erreur dans le mot de passe ou le nom d\'utilisateur')
     return render(request, 'compte/access.html')
+
+def logoutUser(request):
+    logout(request)
+    return redirect('acces')
