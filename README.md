@@ -1293,7 +1293,7 @@ Bouton quitter dans templates/base/navbar.html :
 </nav>
 ```
 
-#### Autorisation d'accès
+### Autorisation d'accès
 
 produit/views.py:
 ```python
