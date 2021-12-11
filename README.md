@@ -1080,9 +1080,7 @@ templates/compte/inscription.html :
 				   		</div>
 					</form>
 				</div>
-				{% for message in messages %}
-				<p id="messages">{{message}}</p>
-				{% endfor%}
+
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Avez-vous un compte? <a href="{% url 'acces' %}" class="ml-2">Se connecter</a>
@@ -1110,9 +1108,6 @@ templates/compte/inscription.html :
 	</script>
 </body>
 </html>
-
-
-
 ```
 
 ## Login
@@ -1228,7 +1223,9 @@ templates/compte/access.html :
 					</form>
 
 				</div>
-
+				{% for message in messages %}
+				<p id="messages">{{message}}</p>
+				{% endfor%}
 				<div class="mt-4">
 					<div class="d-flex justify-content-center links">
 						Avez-vous un compte? <a href="{% url 'inscription' %}" class="ml-2">Inscrivez-vous</a>
@@ -1242,6 +1239,9 @@ templates/compte/access.html :
 
 </html>
 ```
+
+## Logout 
+
 
 
 
