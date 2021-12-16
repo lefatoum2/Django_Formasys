@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'client', # ajout
 ]
 ```
-## Les routes
+## 2. Les routes<a class="anchor" id="section_2"></a>
 projet/urls.py :
 
 ```python
@@ -130,7 +130,7 @@ urlpatterns = [
     path('', views.home),
 ]
 ```
-## Les templates
+## 3. Les templates<a class="anchor" id="section_3"></a>
 
 Créez le dossier templates/produit et ensuite  templates/produit/acceuil.html:
 ```html
@@ -377,7 +377,7 @@ produit/acceuil.html :
     {% endblock content%}
 ```
 
-## Création des modèles
+## 4. Création des modèles<a class="anchor" id="section_4"></a>
 
 commande/models.py
 ```python
@@ -467,7 +467,7 @@ from .models import Produit
 
 admin.site.register(Produit)
 ```
-##  Afficher les données dans la partie frontend
+##  5. Afficher les données dans la partie frontend<a class="anchor" id="section_5"></a>
 
 produit/views.py :
 ```python
@@ -549,7 +549,7 @@ templates/produit/acceuil.html :
     {% endblock content%}
 ```
 
-## URLs dynamiques
+## 6. URLs dynamiques<a class="anchor" id="section_6"></a>
 
 client/views.py :
 ```python
@@ -642,7 +642,7 @@ client/list_client.html :
 
     {% endblock content %}
 ```
-## CRUD
+## 7. CRUD<a class="anchor" id="section_2"></a>
 
 Créer le formulaire pour ajouter une commande (commande/forms.py):
 ```python
@@ -821,7 +821,7 @@ urlpatterns = [
 
 ```
 
-## Implementation du filtre
+## 8. Implementation du filtre<a class="anchor" id="section_8"></a>
 
 ```python
 pip install django_filters
@@ -883,7 +883,7 @@ client/list_client.html:
 
 ...
 ```
-## Inscription
+## 9. Inscription<a class="anchor" id="section_9"></a>
 
 ```python
 py manage.py startapp compte
@@ -1127,7 +1127,7 @@ templates/compte/inscription.html :
 </html>
 ```
 
-## Login
+## 10. Login<a class="anchor" id="section_2"></a>
 
 
 templates/compte/access.html :
@@ -1257,7 +1257,7 @@ templates/compte/access.html :
 </html>
 ```
 
-## Logout 
+## 11. Logout<a class="anchor" id="section_2"></a> 
 
 compte/views.py :
 
@@ -1310,7 +1310,7 @@ Bouton quitter dans templates/base/navbar.html :
 </nav>
 ```
 
-### Autorisation d'accès
+### 12. Autorisation d'accès<a class="anchor" id="section_12"></a>
 
 produit/views.py:
 ```python
