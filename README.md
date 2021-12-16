@@ -16,7 +16,7 @@
 * [11. Logout](#Section_11)
 * [12. Autorisation d'accès](#Section_12)
 
-## Installation
+## 1. Installation<a class="anchor" id="section_1"></a>  
 ```
 pip install django
 ```
