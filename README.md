@@ -903,7 +903,7 @@ INSTALLED_APPS = [
     'commande',
     'client',
     'django_filters',
-    'compte',
+    'compte', # ajout
 ]
 ```
 projets/urls.py  :
