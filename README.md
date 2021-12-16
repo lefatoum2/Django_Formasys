@@ -642,7 +642,7 @@ client/list_client.html :
 
     {% endblock content %}
 ```
-## 7. CRUD<a class="anchor" id="section_2"></a>
+## 7. CRUD<a class="anchor" id="section_7"></a>
 
 Créer le formulaire pour ajouter une commande (commande/forms.py):
 ```python
