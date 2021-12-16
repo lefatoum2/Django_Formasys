@@ -3,18 +3,18 @@
 
 ## Sommaire 
 
-[1.Installation](#Section_1)
-[2.Les Routes](#Section_2)
-[3.Les Templates](#Section_3)
-[4.Création des modèles](#Section_4)
-[5.Afficher les données dans la partie frontend](#Section_5)
-[6.URLs dynamiques](#Section_6)
-[7.CRUD](#Section_7)
-[8.Implementation du filtre](#Section_8)
-[9.Inscription](#Section_9)
-[10.Login](#Section_10)
-[11.Logout](#Section_11)
-[12.Autorisation d'accès](#Section_12)
+* [1.Installation](#Section_1)
+* [2.Les Routes](#Section_2)
+* [3.Les Templates](#Section_3)
+* [4.Création des modèles](#Section_4)
+* [5.Afficher les données dans la partie frontend](#Section_5)
+* [6.URLs dynamiques](#Section_6)
+* [7.CRUD](#Section_7)
+* [8.Implementation du filtre](#Section_8)
+* [9.Inscription](#Section_9)
+* [10.Login](#Section_10)
+* [11.Logout](#Section_11)
+* [12.Autorisation d'accès](#Section_12)
 
 ## Installation
 ```
