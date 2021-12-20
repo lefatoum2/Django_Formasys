@@ -165,6 +165,14 @@ TEMPLATES = [
     },
 ]
 ```
+Et pour charger les fichiers css et les images, projet/settings.py:
+```python
+...
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+MEDIA_URL = '/images/'
+...
+```
 
 Puis modifiez produit/views.py : 
 
