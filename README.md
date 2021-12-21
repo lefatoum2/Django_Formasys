@@ -173,6 +173,14 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 MEDIA_URL = '/images/'
 ...
 ```
+Charger css dans html : 
+```html
+{% load static %}
+...
+...
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+```
+
 
 Puis modifiez produit/views.py : 
 
