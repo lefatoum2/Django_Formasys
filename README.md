@@ -17,6 +17,17 @@
 * [12. Autorisation d'accès](#Section_12)
 
 ## 1. Installation<a class="anchor" id="section_1"></a>  
+
+### Virtual Environmenent
+```
+virtualenv venv
+```
+
+Activate
+```
+venv/Scripts/activate
+```
+### Django
 ```
 pip install django
 ```
