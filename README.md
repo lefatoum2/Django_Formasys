@@ -1392,4 +1392,4 @@ def supprimer_commande(request, pk):
     return render(request, 'commande/supprimer_commande.html', context)
 
 ```
-
+Source: https://www.youtube.com/watch?v=h7cOL9JK-Gs&list=PL5waSwMME4E7_lbB6BcluIiqCsU0uW2Zm
