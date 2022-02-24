@@ -27,6 +27,12 @@ Activate
 ```
 venv/Scripts/activate
 ```
+
+Save your configuration :
+```
+pip freeze > requirements.txt
+```
+
 ### Django
 ```
 pip install django
