@@ -1160,7 +1160,7 @@ templates/compte/inscription.html :
 </html>
 ```
 
-## 10. Login<a class="anchor" id="section_2"></a>
+## 10. Login<a class="anchor" id="#Section_10"></a>
 
 
 templates/compte/access.html :
@@ -1290,7 +1290,7 @@ templates/compte/access.html :
 </html>
 ```
 
-## 11. Logout<a class="anchor" id="section_2"></a> 
+## 11. Logout<a class="anchor" id="section_11"></a> 
 
 compte/views.py :
 
